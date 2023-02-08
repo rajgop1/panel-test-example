@@ -50,7 +50,7 @@ init_doc()
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[105]:
+# In[1]:
 
 
 import pandas as pd
@@ -60,31 +60,31 @@ pn.extension('tabulator')
 import hvplot.pandas
 
 
-# In[106]:
+# In[2]:
 
 
-df = pd.read_excel('https://docs.google.com/spreadsheets/d/1FqYzCE-wMaXjfNXFW2HqJPBE4lV-knd6/edit?usp=share_link&ouid=108012239366024272368&rtpof=true&sd=true', sheet_name='Sheet1')
+df = pd.read_excel('Reports.xlsx', sheet_name='Sheet1')
 
 
-# In[107]:
+# In[3]:
 
 
 # df['WATER CONTENT%'] = df['WATER CONTENT%'] / df['WATER CONTENT%'].sum() * 100
 
 
-# In[108]:
+# In[4]:
 
 
 table = df[['WELL', 'Asset', 'OIL(M3/DAY)', 'OIL(MT/DAY)', 'WATER CONTENT%', 'Year', 'Month']]
 
 
-# In[109]:
+# In[5]:
 
 
 table = table.reset_index(drop=True)
 
 
-# In[110]:
+# In[6]:
 
 
 Asset_select = pn.widgets.Select(name='Asset', options=sorted(df['Asset'].dropna().unique().tolist()))
@@ -92,7 +92,7 @@ Year_select = pn.widgets.Select(name='Year', options=sorted(df['Year'].dropna().
 Month_select = pn.widgets.Select(name='Month', options=sorted(df['Month'].dropna().unique().tolist()))
 
 
-# In[111]:
+# In[7]:
 
 
 # table['cumulative_sum'] = table['WATER CONTENT%'].cumsum()
@@ -106,14 +106,14 @@ table.sort_values(by='WATER CONTENT%', ascending=False, inplace=True)
 itable = table.interactive()
 
 
-# In[112]:
+# In[8]:
 
 
 # sort_water = pn.widgets.Button(name='Sort by WATER CONTENT%', button_type='primary')
 # sort_oil = pn.widgets.Button(name='Sort by OIL(M3/DAY)', button_type='primary')
 
 
-# In[113]:
+# In[9]:
 
 
 pipeline = (
@@ -128,25 +128,25 @@ pipeline = (
 pipeline = pipeline.drop(["WATER CONTENT%", "OIL(M3/DAY)", "OIL(MT/DAY)"], axis=1).rename(columns={"WATER_CONTENT_PCT": "WATER CONTENT%", "OILM3perDAY": "OIL(M3/DAY)", "OILMTperDAY":"OIL(MT/DAY)"}).sort_values(by="OIL(M3/DAY)", ascending=False)
 
 
-# In[114]:
+# In[10]:
 
 
 well_itable = pipeline.pipe(pn.widgets.Tabulator, pagination='remote', page_size = 10, sizing_mode='stretch_width') 
 
 
-# In[115]:
+# In[11]:
 
 
 well_select = pn.widgets.Select(name='WELL', options=sorted(df['WELL'].dropna().unique().tolist()))
 
 
-# In[116]:
+# In[12]:
 
 
 well_select
 
 
-# In[117]:
+# In[13]:
 
 
 pipeline_chart = (
@@ -157,19 +157,19 @@ pipeline_chart = (
     )
 
 
-# In[118]:
+# In[14]:
 
 
 plot = pipeline_chart.hvplot(x='Year', y='WATER CONTENT%',  title='Well Water Oil% ')
 
 
-# In[119]:
+# In[15]:
 
 
 plot
 
 
-# In[122]:
+# In[16]:
 
 
 template = pn.template.FastListTemplate(
@@ -182,12 +182,6 @@ template = pn.template.FastListTemplate(
 )
 # template.show()
 template.servable()
-
-
-# In[ ]:
-
-
-
 
 
 
