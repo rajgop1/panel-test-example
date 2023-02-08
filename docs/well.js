@@ -63,7 +63,7 @@ import hvplot.pandas
 # In[106]:
 
 
-df = pd.read_excel('./Reports.xlsx', sheet_name='Sheet1')
+df = pd.read_excel('https://docs.google.com/spreadsheets/d/1FqYzCE-wMaXjfNXFW2HqJPBE4lV-knd6/edit?usp=share_link&ouid=108012239366024272368&rtpof=true&sd=true', sheet_name='Sheet1')
 
 
 # In[107]:
