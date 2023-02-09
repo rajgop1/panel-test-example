@@ -60,31 +60,31 @@ pn.extension('tabulator')
 import hvplot.pandas
 
 
-# In[2]:
+# In[ ]:
 
 
-df = pd.read_excel('Reports.xlsx', sheet_name='Sheet1')
+df = pd.read_excel('https://github.com/rajgop1/panel-test-example/blob/Main/docs/Reports.xlsx?raw=true', sheet_name='Sheet1')
 
 
-# In[3]:
+# In[ ]:
 
 
 # df['WATER CONTENT%'] = df['WATER CONTENT%'] / df['WATER CONTENT%'].sum() * 100
 
 
-# In[4]:
+# In[ ]:
 
 
 table = df[['WELL', 'Asset', 'OIL(M3/DAY)', 'OIL(MT/DAY)', 'WATER CONTENT%', 'Year', 'Month']]
 
 
-# In[5]:
+# In[ ]:
 
 
 table = table.reset_index(drop=True)
 
 
-# In[6]:
+# In[ ]:
 
 
 Asset_select = pn.widgets.Select(name='Asset', options=sorted(df['Asset'].dropna().unique().tolist()))
@@ -92,7 +92,7 @@ Year_select = pn.widgets.Select(name='Year', options=sorted(df['Year'].dropna().
 Month_select = pn.widgets.Select(name='Month', options=sorted(df['Month'].dropna().unique().tolist()))
 
 
-# In[7]:
+# In[42]:
 
 
 # table['cumulative_sum'] = table['WATER CONTENT%'].cumsum()
@@ -106,14 +106,14 @@ table.sort_values(by='WATER CONTENT%', ascending=False, inplace=True)
 itable = table.interactive()
 
 
-# In[8]:
+# In[43]:
 
 
 # sort_water = pn.widgets.Button(name='Sort by WATER CONTENT%', button_type='primary')
 # sort_oil = pn.widgets.Button(name='Sort by OIL(M3/DAY)', button_type='primary')
 
 
-# In[9]:
+# In[44]:
 
 
 pipeline = (
@@ -128,25 +128,25 @@ pipeline = (
 pipeline = pipeline.drop(["WATER CONTENT%", "OIL(M3/DAY)", "OIL(MT/DAY)"], axis=1).rename(columns={"WATER_CONTENT_PCT": "WATER CONTENT%", "OILM3perDAY": "OIL(M3/DAY)", "OILMTperDAY":"OIL(MT/DAY)"}).sort_values(by="OIL(M3/DAY)", ascending=False)
 
 
-# In[10]:
+# In[45]:
 
 
 well_itable = pipeline.pipe(pn.widgets.Tabulator, pagination='remote', page_size = 10, sizing_mode='stretch_width') 
 
 
-# In[11]:
+# In[46]:
 
 
 well_select = pn.widgets.Select(name='WELL', options=sorted(df['WELL'].dropna().unique().tolist()))
 
 
-# In[12]:
+# In[47]:
 
 
 well_select
 
 
-# In[13]:
+# In[48]:
 
 
 pipeline_chart = (
@@ -157,19 +157,19 @@ pipeline_chart = (
     )
 
 
-# In[14]:
+# In[49]:
 
 
 plot = pipeline_chart.hvplot(x='Year', y='WATER CONTENT%',  title='Well Water Oil% ')
 
 
-# In[15]:
+# In[50]:
 
 
 plot
 
 
-# In[16]:
+# In[51]:
 
 
 template = pn.template.FastListTemplate(
@@ -182,6 +182,18 @@ template = pn.template.FastListTemplate(
 )
 # template.show()
 template.servable()
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
 
 
 
