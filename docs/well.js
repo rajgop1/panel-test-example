@@ -60,7 +60,7 @@ pn.extension('tabulator')
 import hvplot.pandas
 
 
-# In[ ]:
+# In[2]:
 
 
 df = pd.read_excel('https://github.com/rajgop1/panel-test-example/blob/Main/docs/Reports.xlsx?raw=true', sheet_name='Sheet1')
