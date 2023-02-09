@@ -65,7 +65,6 @@ import hvplot.pandas
 
 df = pd.read_excel('https://github.com/rajgop1/panel-test-example/blob/Main/docs/Reports.xlsx?raw=true', sheet_name='Sheet1')
 
-
 # In[3]:
 
 
